@@ -3,6 +3,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+
+/*
+void bucketSort(int* arr, int size, int max){
+    struct Node** bucketArr[size+1]; //We need n+1 buckets because of the indexing
+    
+    for(int i = 0; i < size; i++){
+        int bucketId = floor((double) size*arr[i]/max); //Assigns all the values into one of n+1 buckets 
+        push(&bucketArr[bucketId],arr[i]);
+    }
+
+    for(int i = 0; i < size; i++){
+        int bucketId = floor((double) size*arr[i]/max); //Assigns all the values into one of n+1 buckets 
+        push(&bucketArr[bucketId],arr[i]);
+    }
+
+    for (int i = 0; i < size; i++){
+        
+    }
+    
+}*/
+
+
+
 /*
 
 Bucket sort: Pega na lista de inteiros com N elementos e divide os elementos em N buckets
@@ -111,9 +136,8 @@ void printList(struct Node *node){
 }
 
 // Insertion sort algorithm applied to linked list, returns array (eu)
-int* insertionSortLL(struct Node** head, int size){
+void insertionSortLL(struct Node** head, int* arr, int size){
     struct Node* node = *head;
-    int* arr = (int*) malloc(sizeof(int)*size);
 
     for(int i = 0; node != NULL; i++){
         int key = node->data;
@@ -129,7 +153,6 @@ int* insertionSortLL(struct Node** head, int size){
         }
         node = node->next;
     }
-    return arr;
 }   
 
 //Utility function to generate random linked list of size n(eu)
@@ -140,26 +163,6 @@ void randomLinkedList(struct Node** head, int n){
         push(head,rand());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -260,26 +263,28 @@ int main(int argc, char* argv[]){
  
     clock_t begin = clock();
     insertionSort(arr, size);
-    verifyOrdered(arr, size);
     clock_t end = clock();
 
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 
     printf("\nArray to Array\nTime elapsed: %fs\n",time_spent);
+    verifyOrdered(arr, size);
 
 
 
+    int* arr2 = (int*) malloc(sizeof(int)*size);
 
     struct Node* head = NULL;
     randomLinkedList(&head,size);
 
     clock_t begin2 = clock();
-    verifyOrdered(insertionSortLL(&head, size),size);
+    insertionSortLL(&head, arr2, size);
     clock_t end2 = clock();
 
     double time_spent2 = (double)(end2 - begin2) / CLOCKS_PER_SEC;
 
-    printf("\nLinked list to Array\nTime elapsed: %fs\n\n",time_spent2);
+    printf("\nLinked list to Array\nTime elapsed: %fs\n",time_spent2);
+    verifyOrdered(arr2,size);
     
     return 0;
 }
