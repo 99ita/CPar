@@ -1,5 +1,7 @@
 # CPar
 
+Correr fazendo primeiro make e depois ./run
+
 Bucket sort: Pega na lista de inteiros com N elementos e divide os elementos em N buckets
              cada bucket corresponde a um intervalo de valores o primeiro vai de 0 a X 
              e o ultimo vai de Y ao maior valor do array. 
