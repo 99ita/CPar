@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.pl": "prolog",
+        "stdlib.h": "c",
+        "linkedlist.h": "c",
+        "math.h": "c",
+        "time.h": "c",
+        "limits": "c",
+        "string.h": "c"
+    }
+}
