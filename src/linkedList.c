@@ -11,7 +11,7 @@ void push(struct LList** list, int value){
         (*list)->size = 0;
     }
     newNode->value  = value;
- 
+
     newNode->next = (*list)->head;
  
     (*list)->head = newNode;
@@ -92,15 +92,20 @@ void insertionSortLL(struct LList** list, int* arr){
 
 //Bucket sort using insertion sort and linkeds list as buckets 
 void bucketSortLL(int* arr, int n, int max, int n_buckets){
-    struct LList** bucketArr = (struct LList**) malloc(sizeof(struct LList*)*n_buckets+1);
+    
+    struct LList** bucketArr = (struct LList**) calloc(n_buckets,sizeof(struct LList*));
+    
+    int bucketId;
     for(int i = 0; i < n; i++){
-        int bucketId = floor((double) n_buckets*arr[i]/max); //Assigns all the values into one of n_buckets buckets 
-        push(&bucketArr[bucketId],arr[i]);
+        //printf("\n1i: %d",i);
+        bucketId = floor((double) n_buckets*arr[i]/max); //Assigns all the values into one of n_buckets buckets 
+        if(bucketId>n_buckets-1) bucketId = n_buckets-1;
+        //printf("\n2i: %d,%d",i,bucketId);
+        push(&(bucketArr[bucketId]),arr[i]);
     }
-    printf("\nBucket assigment done!\n");
 
     int arrI = 0;
-    for(int i = 0; i <= n_buckets; i++){ //Hard to parallelize
+    for(int i = 0; i < n_buckets; i++){ //Hard to parallelize
         if(bucketArr[i] != NULL){
             insertionSortLL(&bucketArr[i],arr+arrI);
             arrI += bucketArr[i]->size;

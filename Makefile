@@ -1,5 +1,5 @@
 # source files.
-SRC = src/bucket.c src/arrays.c src/linkedList.c
+SRC = src/bucket.c src/arrays.c src/linkedList.c src/minheap.c
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -10,8 +10,8 @@ INCLUDES = -I.
  
 # C compiler flags 
 #CCFLAGS = -O0 -Wall
-CCFLAGSPAR = -std=c99 -O2 -Wall -fopenmp -I/share/apps/papi/5.5.0/include -L/share/apps/papi/5.5.0/lib
-CCFLAGS = -std=c99 -O2 -Wall
+CCFLAGS = -std=c99 -O2 -Wall -fopenmp -I/share/apps/papi/5.4.1/include 
+CCFLAGSPAR = -std=c99 -O2 -Wall
 #CCFLAGS = -O3 -Wall -msse4.1 -march=i686
 
 # compiler
@@ -20,8 +20,8 @@ CCC = gcc
 #CCC = g++-4.5
 
 # libraries
-LIBSPAR = -lm -lpapi
-LIBS = -lm
+LIBS = -L/share/apps/papi/5.4.1/lib -lm -fopenmp -lpapi
+#LIBS = -lm -fopenmp
 
 
 default:
