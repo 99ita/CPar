@@ -96,8 +96,10 @@ int parseInt(char* arg){
 
 //Parses first argument of input
 int parseArg(char* arg){
+    printf("\n%s\n\n",arg);
     if(arg[0] != '-') return 0;
     if(arg[1] == 's') return 1;
+    if(arg[1] == 'a') return 7;
     if(arg[1] == 'b'){
         if(arg[2] == 's') return 2;
         if(arg[2] == 'p'){
@@ -107,7 +109,6 @@ int parseArg(char* arg){
         if(arg[2] == 'l') return 4;
         if(arg[2] == 'd') return 5;
     }
-    if(arg[1] == 'a') return 7;
     return 0;
 }
 
@@ -115,7 +116,8 @@ int parseArg(char* arg){
 int inputControl(int argc, char* argv[], int* mode, int* size, int* splits, int* n_buckets, int* n_threads){
     //----------Input control----------
     int r = 1;
-    if(argc == 1){
+
+    if(argc == 0){
         r = 0;
     }
     else if(!(*mode = parseArg(argv[1]))){
@@ -137,6 +139,9 @@ int inputControl(int argc, char* argv[], int* mode, int* size, int* splits, int*
             r = 0;
         }
     }
+    
+    
+    
     if(r == 0){
         printf("\nUsage:\n./run [-bs|bd|bl n_buckets] [-bp1|bp2 n_threads n_buckets] [-s] arraysize splits\n");
         printf("-s compares insertion sort and quick sort\n");
@@ -144,8 +149,8 @@ int inputControl(int argc, char* argv[], int* mode, int* size, int* splits, int*
         printf("-bs compares sequential implementations of bucket sort using insertion sort or quick sort with arrays as buckets\n");
         printf("-bp1 compares parallel implementations of bucket sort using insertion sort or quick sort with arrays as buckets (global buckets)\n");
         printf("-bp2 compares parallel implementations of bucket sort using insertion sort or quick sort with arrays as buckets (thread owned buckets)\n");
-        printf("-bd compares sequencial implementations of bucket sort using insertion sort or quick sort with dynamic arrays as buckets\n\n");
-        printf("-a final testing\n\n");
+        printf("-bd compares sequencial implementations of bucket sort using insertion sort or quick sort with dynamic arrays as buckets\n");
+        printf("-ba final testing\n\n\n");
     }
     return r;
 }
@@ -157,9 +162,155 @@ void runall(){
     int L3Size = 2097152;
     int RamSize = 4194304;
 
-    printf("Initializing all tests\n\n\n\n");
+    /* Start counting events */
+    if (PAPI_start(EventSet) != PAPI_OK) {
+        fprintf (stderr, "PAPI error starting counters!\n");
+        return;
+    }
 
-    printf("L1 Cache test\n");
+
+    sorts(4,100000000,1,RAND_MAX,0,2); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,2); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,2); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,2); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,2); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,2); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,2); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,2); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,2); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,2); //Pararellized2 using insertion sort
+
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,4); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,4); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,4); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,4); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,4); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,4); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,4); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,4); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,4); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,4); //Pararellized2 using insertion sort
+
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
+
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,16); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,16); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,16); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,16); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,16); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,16); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,16); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,16); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,16); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,16); //Pararellized2 using insertion sort
+
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,32); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,32); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,32); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,32); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,32); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,32); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,32); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,32); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,32); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,32); //Pararellized2 using insertion sort
+
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,48); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,48); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,48); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,48); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,48); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,48); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,48); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,48); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,48); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,48); //Pararellized2 using insertion sort
+
+
+
+
+
+    sorts(4,100000000,1,RAND_MAX,0,64); //Pararellized1 using insertion sort
+    sorts(9,100000000,1,RAND_MAX,0,64); //Pararellized2 using insertion sort
+
+    sorts(4,10000000,1,RAND_MAX,0,64); //Pararellized1 using insertion sort
+    sorts(9,10000000,1,RAND_MAX,0,64); //Pararellized2 using insertion sort
+
+    sorts(4,1000000,1,RAND_MAX,0,64); //Pararellized1 using insertion sort
+    sorts(9,1000000,1,RAND_MAX,0,64); //Pararellized2 using insertion sort
+
+    sorts(4,100000,1,RAND_MAX,0,64); //Pararellized1 using insertion sort
+    sorts(9,100000,1,RAND_MAX,0,64); //Pararellized2 using insertion sort
+
+    sorts(4,10000,1,RAND_MAX,0,64); //Pararellized1 using insertion sort
+    sorts(9,10000,1,RAND_MAX,0,64); //Pararellized2 using insertion sort
+
+    //Stop counting events
+    if(PAPI_stop(EventSet,values) != PAPI_OK) {
+        fprintf (stderr, "PAPI error stoping counters!\n");
+        return;
+    }  
+
+
+    /*printf("L1 Cache test\n");
     //L1
     sorts(2,L1Size,1,RAND_MAX,0,8); //Sequential using insertion sort
     sorts(3,L1Size,1,RAND_MAX,0,8); //Sequential using quick sort
@@ -196,7 +347,7 @@ void runall(){
     sorts(4,RamSize,1,RAND_MAX,0,8); //Pararellized1 using insertion sort
     sorts(5,RamSize,1,RAND_MAX,0,8); //Pararellized1 using quick sort
     sorts(9,RamSize,1,RAND_MAX,0,8); //Pararellized2 using insertion sort
-    sorts(10,RamSize,1,RAND_MAX,0,8); //Pararellized2 using quick sort
+    sorts(10,RamSize,1,RAND_MAX,0,8); //Pararellized2 using quick sort*/
 }
 
 
@@ -221,8 +372,7 @@ int main(int argc, char* argv[]){
     }
     
     /* Get the number of hardware counters available */
-    if ((num_hwcntrs = PAPI_num_hwctrs()) <= PAPI_OK)  {
-        printf("\nn: %d\n",num_hwcntrs);
+    if ((num_hwcntrs = PAPI_num_hwctrs()) <= PAPI_OK){
         fprintf (stderr, "PAPI error getting number of available hardware counters!\n");
         return 0;
     }
@@ -240,7 +390,7 @@ int main(int argc, char* argv[]){
         fprintf(stderr,"PAPI library add events error!\n");
         return 0;
     }
-
+/*
 
     if(inputControl(argc, argv, &mode, &size, &splits, &n_buckets,&n_threads) == 0) return 0;
 
@@ -263,7 +413,8 @@ int main(int argc, char* argv[]){
         sorts(10,size,splits,RAND_MAX,n_buckets, n_threads);
     }else if(mode == 7){
         runall();
-    }
+    }*/
+    runall();
 
 
     // output PAPI counters' values

@@ -3,7 +3,7 @@ SRC = src/bucket.c src/arrays.c src/linkedList.c src/minheap.c
 
 OBJ = $(SRC:.cpp=.o)
 
-OUT = run
+OUT = bSort
 
 # include directories
 INCLUDES = -I. 
